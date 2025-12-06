@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Proyecto - Arquitectura de Computadoras</title>
+  <style>
+    :root{
+      --bg:#0e0f12; --panel:#161719; --accent:#4caf50; --muted:#9aa3a8; --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:#e6eef1;line-height:1.5}
+    header{position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);backdrop-filter: blur(4px);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.03);z-index:50}
+    .brand{font-weight:700;color:var(--accent)}
+    nav{display:flex;gap:14px}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px}
+    nav a:hover{color:#fff;background:var(--glass)}
+    main{max-width:1100px;margin:28px auto;padding:0 20px}
+    section{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.03);padding:28px;border-radius:12px;margin-bottom:18px}
+    h1{margin:0 0 10px;color:var(--accent)}
+    h2{margin:16px 0 8px;color:#dff5e2}
+    p{margin:0 0 10px;color:#d7e3e8}
+    ul{margin:8px 0 12px 20px}
+    .small{color:var(--muted);font-size:0.95rem}
+    .meta{display:flex;gap:10px;align-items:center}
+    footer{max-width:1100px;margin:20px auto 60px;padding:12px 20px;color:var(--muted);font-size:0.95rem}
+    pre.code{background:#0b0c0d;padding:12px;border-radius:8px;overflow:auto;color:#cde8d9}
+    @media(max-width:720px){nav{overflow:auto;padding-bottom:6px}nav a{white-space:nowrap}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Arquitectura de Computadoras — Proyecto Final</div>
+    <nav>
+      <a href="#u1">Unidad 1</a>
+      <a href="#u2">Unidad 2</a>
+      <a href="#u3">Unidad 3</a>
+      <a href="#u4">Unidad 4</a>
+      <a href="#u5">Unidad 5</a>
+      <a href="#concl">Conclusiones</a>
+      <a href="#refs">Referencias</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="u1">
+      <h1>Unidad 1 — Arquitecturas de Cómputo</h1>
+      <p class="small">Resumen de modelos, CPU, memoria y buses.</p>
+
+      <h2>Modelos de arquitectura</h2>
+      <ul>
+        <li><strong>Clásicas (secuencial):</strong> un solo procesador ejecuta instrucciones en ciclo buscar→decodificar→ejecutar. Ej.: Von Neumann. Ventaja: diseño simple. Desventaja: no paralelismo.</li>
+        <li><strong>Segmentadas (pipeline):</strong> la instrucción se divide en etapas superpuestas (fetch, decode, execute, memory, writeback), mejorando rendimiento. Riesgo: hazards.</li>
+        <li><strong>Multiprocesamiento:</strong> varios procesadores o núcleos trabajan en paralelo (SMP, MPP), usado en multicore y supercomputadoras. Mayor complejidad de sincronización.</li>
+      </ul>
+
+      <h2>CPU — Componentes clave</h2>
+      <ul>
+        <li><strong>ALU:</strong> realiza operaciones aritméticas y lógicas.</li>
+        <li><strong>Unidad de control:</strong> fetch/decode/execute y control de señales.</li>
+        <li><strong>Registros:</strong> propósito general, de segmento, de instrucción; sirven como memoria ultrarrápida dentro del CPU.</li>
+      </ul>
+
+      <h2>Memoria y caché</h2>
+      <p>RAM (memoria principal) — volátil y rápida. Caché — memoria rápida cercana al CPU, organizada en niveles L1, L2, L3 para reducir latencia.</p>
+
+      <h2>Buses y E/S</h2>
+      <ul>
+        <li><strong>Buses:</strong> datos, direcciones y control. Tipos: paralelo y serie (USB, PCIe, SATA).</li>
+        <li><strong>E/S:</strong> entrada/salida programada (polling), mediante interrupciones y DMA (transferencia directa a memoria para liberar a la CPU).</li>
+      </ul>
+    </section>
+
+    <section id="u2">
+      <h1>Unidad 2 — Estructura y funcionamiento del CPU</h1>
+      <p class="small">Organización interna del procesador, registros, ciclo de instrucción y modos de direccionamiento.</p>
+
+      <h2>Organización del procesador</h2>
+      <p>Interconexión entre ALU, unidad de control y registros mediante buses internos (datos, direcciones, control). El reloj marca el ritmo de operación.</p>
+
+      <h2>Estructura de registros</h2>
+      <ul>
+        <li><strong>Registros visibles:</strong> registros de propósito general, índices, punteros y flags/condition codes.</li>
+        <li><strong>Registros de control y estado:</strong> usados por el S.O. y la UC para configurar modos y supervisar ejecución.</li>
+      </ul>
+
+      <h2>Ciclo de instrucción (Fetch → Decode → Execute)</h2>
+      <ol>
+        <li><strong>Fetch:</strong> PC → MAR → MDR → traer instrucción.</li>
+        <li><strong>Decode:</strong> decodificar y generar señales de control.</li>
+        <li><strong>Execute:</strong> ALU/E/S/operaciones y actualización de registros/PC.</li>
+      </ol>
+
+      <h2>Modos de direccionamiento</h2>
+      <p>Implican formas de referenciar operandos: implícito, inmediato, directo, indirecto, indexado y relativo. Importantes para la flexibilidad del conjunto de instrucciones.</p>
+
+      <h2>Temas avanzados</h2>
+      <p class="small">Investigación sobre paralelización, balance de carga y optimización en sistemas multicore y distribuidos.</p>
+    </section>
+
+    <section id="u3">
+      <h1>Unidad 3 — Selección de Componentes para Ensamblaje</h1>
+      <p class="small">Componentes principales de una PC y justificación de selección.</p>
+
+      <h2>Chipset y placa base</h2>
+      <p>El chipset (Northbridge/Southbridge en diseños clásicos) conecta CPU, memoria y periféricos; hoy muchas funciones pasan al propio procesador.</p>
+
+      <h2>CPU: componentes internos</h2>
+      <ul>
+        <li>ALU, unidad de control, registros internos, caches y controladores integrados.</li>
+      </ul>
+
+      <h2>Controlador del bus y E/S</h2>
+      <p>Sincroniza señales, temporización y comunicación entre componentes. Puertos: USB, HDMI, DisplayPort, Ethernet, SATA, PCIe.</p>
+
+      <h2>Almacenamiento y fuentes</h2>
+      <ul>
+        <li><strong>Almacenamiento:</strong> SSD (rápido, no volátil) vs HDD (mayor capacidad/menor costo).</li>
+        <li><strong>Fuente de poder:</strong> factor de forma ATX/SFX, capacidad (W), eficiencia 80 Plus y modularidad.</li>
+      </ul>
+
+      <h2>Periféricos y uso</h2>
+      <p>Dispositivos de entrada (teclado, ratón), salida (monitor, altavoces) y conectividad inalámbrica (Wi‑Fi, Bluetooth). Selección según propósito: oficina, gaming, multimedia.</p>
+
+      <h2>Ambientes de servicio</h2>
+      <p>Requisitos técnicos en escenarios: negocios (fiabilidad/seguridad), industria (tiempo real/robustez), comercio electrónico (escalabilidad y baja latencia).</p>
+    </section>
+
+    <section id="u4">
+      <h1>Unidad 4 — Computación Paralela</h1>
+      <p class="small">Fundamentos, arquitecturas de memoria y casos prácticos.</p>
+
+      <h2>Aspectos básicos</h2>
+      <p>La computación paralela divide problemas en subproblemas ejecutados simultáneamente por múltiples procesadores para reducir el tiempo de ejecución. Conceptos clave: núcleo, hilo y Ley de Amdahl (límite del speedup según la parte secuencial).</p>
+
+      <h2>Tipos de paralelismo</h2>
+      <ul>
+        <li><strong>Bit-level:</strong> palabras más anchas (16→32→64 bits).</li>
+        <li><strong>ILP (Instruction Level):</strong> pipelines y superescalar.</li>
+        <li><strong>TLP (Thread Level):</strong> multithreading y multicore.</li>
+        <li><strong>Task/Data Parallelism:</strong> tareas o datos distribuidos (GPUs, clusters).</li>
+      </ul>
+
+      <h2>Modelos de memoria compartida</h2>
+      <p><strong>UMA:</strong> acceso uniforme, más sencillo pero con cuellos de botella. <strong>NUMA:</strong> no uniforme; memoria local rápida y memoria remota más lenta; mejor escalabilidad pero requiere conciencia de localidad.</p>
+
+      <h2>Sistemas de memoria distribuida</h2>
+      <p>Cada nodo con memoria privada; comunicación por paso de mensajes (MPI). Elevada escalabilidad y uso en clusters y supercomputación; programación más compleja.</p>
+
+      <h2>Casos de estudio</h2>
+      <ul>
+        <li>Análisis de speedup y eficiencia usando 1,2,4,8,16 procesadores.</li>
+        <li>Paralelización de multiplicación de matrices y procesamiento de imágenes (granularidad y balanceo).</li>
+        <li>Programación con OpenMP/pthreads (memoria compartida) y MPI (memoria distribuida).</li>
+      </ul>
+    </section>
+
+    <section id="u5">
+      <h1>Unidad 5 — Procesadores y Memorias</h1>
+      <p class="small">Clasificación de procesadores por gamas y tipos de memoria.</p>
+
+      <h2>Procesadores por gama</h2>
+      <p><strong>Gama baja:</strong> diseño para eficiencia energética y bajo costo; ejemplos: Intel Celeron, Pentium, AMD Athlon. Útiles para tareas de oficina, navegación y reproducción multimedia.</p>
+      <p><strong>Gama media:</strong> equilibrio rendimiento/precio; ejemplos: Intel Core i5, AMD Ryzen 5 — aptos para multitarea, gaming 1080p y edición ligera.</p>
+      <p><strong>Gama alta:</strong> alto rendimiento para edición, render y simulación; ejemplos: Intel Core i9, AMD Ryzen 9 con muchos núcleos y gran caché.</p>
+
+      <h2>Tipos de memoria</h2>
+      <ul>
+        <li><strong>RAM:</strong> memoria principal volátil (módulos DIMM), mide capacidad en GB y afecta multitarea.</li>
+        <li><strong>ROM:</strong> memoria no volátil para firmware/BIOS; lectura fija.</li>
+        <li><strong>Caché:</strong> L1/L2/L3 — jerarquía para acelerar acceso a datos frecuentes.</li>
+        <li><strong>Memoria virtual:</strong> swap/paginación en disco para ampliar la RAM aparente, con penalización de rendimiento.</li>
+      </ul>
+
+      <h2>Ejemplos destacados</h2>
+      <p>Se listan ejemplos de CPUs de distintas generaciones y su justificación de uso (i3/i5/i7/i9, Ryzen 5/7/9, etc.) para mostrar comparativas en precio/consumo/rendimiento.</p>
+    </section>
+
+    <section id="concl">
+      <h1>Conclusiones</h1>
+      <p>La arquitectura de computadoras combina diseño de hardware y técnicas de software para alcanzar rendimiento y eficiencia. La elección entre arquitecturas se basa en el problema, presupuesto y escalabilidad requerida. Las memorias y la organización interna del CPU (registros, caches, pipelines) son fundamentales para el rendimiento global.</p>
+    </section>
+
+    <section id="refs">
+      <h1>Referencias</h1>
+      <p class="small">Material de las presentaciones del curso (Unidades 1–5).</p>
+    </section>
+  </main>
+
+  <footer>
+    <div>Hecho para la materia de Arquitectura de Computadoras — Proyecto Final. Si quieres, puedo generar un ZIP con los archivos listos para subir a GitHub Pages y darte la guía paso a paso.</div>
+  </footer>
+</body>
+</html>
